@@ -1,0 +1,40 @@
+{
+	"baseName": "supercall",
+	"entities": [
+		{
+			"name": "Records",
+			"attrs": [
+				{
+					"attrName": "direction",
+					"attrType": "String",
+					"enumValues": [],
+					"required": false
+				},
+				{
+					"attrName": "filename",
+					"attrType": "String",
+					"minLength": "",
+					"maxLength": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "filesize",
+					"attrType": "Integer",
+					"min": "",
+					"max": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "filecreationdate",
+					"attrType": "Date",
+					"dateConstraint": "",
+					"enumValues": [],
+					"required": false
+				}
+			]
+		}
+	],
+	"resources": []
+}
