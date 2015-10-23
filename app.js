@@ -61,7 +61,7 @@ function getDirection(file) {
 // middleware: pull in new records
 app.use(function(req, res, next) {
   // console.log('gonna walk');
-  var location = '/Users/kevinfriedheim/call-records';
+  var location = '/Users/friedheim/call records';
 
     db.Records.findAll().success(function(entities) {
       return entities;
@@ -76,10 +76,7 @@ app.use(function(req, res, next) {
             var statUtil = util.inspect(stat);
 
             var date = /.*(\d{4}\-\d{2}\-\d{2})/.exec(file);
-            console.log('date: ', date);
-
-            // TODO: test that file name contains .wav (sound format)
-
+            
             if (/\.wav$/i.test(file) && !_.findWhere(records, {'filename':file})) {
               db.Records.create({
                 filename: file,
