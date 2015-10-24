@@ -1,6 +1,6 @@
 <div>
 
-    <h2>Records</h2>
+    <h2>{{filteredRecords.length || 0}}&nbsp;Records</h2>
 
     <script type = "text/ng-template" id="Records-save.html">
         <form name="form" role="form" novalidate
@@ -66,10 +66,7 @@
             </div>
         </form>
     </script>
-<!-- 
-    <button class="btn btn-primary btn-lg" ng-click="create()">
-        <span class="glyphicon glyphicon-flash"></span> Create a new Records
-    </button> -->
+
     <div style="width:100%">
         <div class="form-inline">
             <div class="form-group">
@@ -82,15 +79,12 @@
                     <option ng-repeat="v in sortOptions">{{v}}</option>
                 </select> 
             </div>
-            <div class="form-group">
-                <span class="alert alert-info">
-                    {{filteredRecords.length || 0}}&nbsp;Records
-                </span>
-            </div>
         </div>
     </div>
-        
-    
+
+    <div class="well">
+        <button class="btn btn-default" ng-click="openFile(Records.id)">Open File</button>
+    </div>
    
     <div class="table-responsive">
         <table class="table table-striped">
@@ -118,7 +112,7 @@
                 
                 <td>{{Records.direction }}</td>
                 
-                <td>{{Records.filename }}</td>
+                <td><a ng-click="openFile(Records.id)">{{Records.filename }}</a></td>
                 
                 <td>{{Records.filesize | humanizeFilesize }}</td>
                 

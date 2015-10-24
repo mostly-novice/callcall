@@ -19,10 +19,9 @@ app.set('port', process.env.PORT || 3000)
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jade')
 
-
+var folder = JSON.parse(fs.readFileSync('config.json')).folder;
 
 var walk = function(dir, done) {
-  // console.log('gonna walk dir: ', dir);
   var results = [];
   fs.readdir(dir, function(err, list) {
     if (err) return done(err);
@@ -60,18 +59,15 @@ function getDirection(file) {
 
 // middleware: pull in new records
 app.use(function(req, res, next) {
-  // console.log('gonna walk');
-  var location = '/Users/friedheim/call records';
+  var location = folder;
 
     db.Records.findAll().success(function(entities) {
       return entities;
     })
     .then(function(records) {
-      // console.log('found records: ', records);
       walk(location, function analyze(err, list) {
         if(err) { console.error('omg omg error: ', err); }
         list.forEach(function (file) {
-            // console.log('found file: ', file);
             var stat = fs.statSync(file);
             var statUtil = util.inspect(stat);
 
@@ -85,8 +81,6 @@ app.use(function(req, res, next) {
                 filecreationdate: (date && date[1]) ? date[1] : stat.birthtime
               });
             }
-            // console.log('statUtil: ', statUtil);
-
         })
       });
     })
@@ -108,7 +102,7 @@ if ('development' === app.get('env')) {
 
 app.get('/supercall/Records', Records.findAll)
 app.get('/supercall/Records/:id', Records.find)
-app.get('/supercall/Records/open/:id', Records.open)
+app.get('/supercall/Records/openfile/:id', Records.openFile)
 app.post('/supercall/Records', Records.create)
 app.put('/supercall/Records/:id', Records.update)
 app.del('/supercall/Records/:id', Records.destroy)

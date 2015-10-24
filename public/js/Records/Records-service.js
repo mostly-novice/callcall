@@ -5,7 +5,6 @@ angular.module('supercall')
     return $resource('supercall/Records/:id', {}, {
       'query': { method: 'GET', isArray: true},
       'get': { method: 'GET'},
-      'update': { method: 'PUT'},
-      'open': { method: 'GET'}
+      'update': { method: 'PUT'}
     });
   }]);

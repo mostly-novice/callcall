@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('supercall')
-  .controller('RecordsController', ['$scope', '$modal', 'resolvedRecords', 'Records',
-    function ($scope, $modal, resolvedRecords, Records) {
+  .controller('RecordsController', ['$scope', '$modal', 'resolvedRecords', 'Records', 'Files',
+    function ($scope, $modal, resolvedRecords, Records, Files) {
 
       $scope.sortOptions = [
           'filename', 'filecreationdate', 'filesize'
@@ -30,6 +30,14 @@ angular.module('supercall')
           });
       };
 
+      $scope.openFile = function(id) {
+        console.log('going to call Records.openFile with id: ', id);
+        Files.get({id: id},
+          function () {
+            $scope.Files = Files.get();
+          })
+      }
+
       $scope.save = function (id) {
         if (id) {
           Records.update({id: id}, $scope.Records,
@@ -45,11 +53,6 @@ angular.module('supercall')
             });
         }
       };
-
-      $scope.openFile = function(id) {
-        // Records.open()
-        // WILO
-      }
 
       $scope.clear = function () {
         $scope.Records = {

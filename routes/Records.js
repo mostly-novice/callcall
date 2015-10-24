@@ -35,7 +35,7 @@ exports.update = function(req, res) {
   })
 }
 
-exports.open = function(req, res) {
+exports.openFile = function(req, res) {
   db.Records.find({ where: { id: req.param('id') } }).success(function(entity) {
     if( entity) {
 
@@ -48,20 +48,23 @@ exports.open = function(req, res) {
          }
       }
 
-      var sys = require('sys');
+      var util = require('util');
       var exec = require('child_process').exec;
+      var cmd = getCommandLine() + ' "' + entity.filename + '"';
 
-      if ( exec(getCommandLine() + ' ' + entity.filename) ) {
+      console.log('Running command: ', cmd);
+
+      exec(cmd, function(error, stdout, stderr) {
+        console.log('error: ', error);
+        console.log('stdout: ', stdout);
+        console.log('stderr: ', stderr);
+      });
+
+      if ( exec(cmd) ) {
         res.send(1);
       } else {
         res.send(0);
       }
-      // do open
-
-      // if success - return 1
-
-
-      // else return 0
     } else {
       res.send(404);
     }
