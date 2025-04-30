@@ -27,3 +27,4 @@ build/Release
 node_modules
 app/public/lib
 public/lib
+.DS_Store
